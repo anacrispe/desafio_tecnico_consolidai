@@ -31,7 +31,7 @@ Implemente uma SPA moderna em React, que:
 - Consuma os endpoints de produtos da **API Node.js**
 - Faça CRUD completo de produtos
 - Utilize Axios ou fetch
-- O layout da aplicação deverá ser responsivo / adaptativo e utilizar o Boostrap para tal. Deve ser utilizado AJAX nas operações de CRUD utilizando jQuery.
+- O layout da aplicação deverá ser responsivo / adaptativo
 - Não mostrar produtos excluidos
   
 ## 4. Estrutura básica das tabelas
