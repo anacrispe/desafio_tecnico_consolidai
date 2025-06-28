@@ -69,6 +69,61 @@ Em casos de problema de execução do ambiente do avaliador, o teste poderá ser
 
 ## Instalação
 
+*Ambiente de produção
+```bash
+php -v
+> Esperado: PHP >= 7.4  
+*Se não tiver instalado, baixe em: https://www.php.net/downloads.php*  
+  
+
+mysql --version
+> Esperado: MySQL >= 5.6  
+*Se não tiver instalado, baixe em: https://dev.mysql.com/downloads/*  
+  
+OU 
+
+xampp 8.2.12
+
+
+//////////////////////////////
+
+
+
+
+*🛢️ Banco de dados
+
+🔹 MySQL (Clientes)
+
+Para rodar localmente o banco de clientes no MySQL:
+
+sql
+-- Criar banco de dados 
+CREATE DATABASE IF NOT EXISTS desafio_cliente CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- Selecionar o banco de dados
+USE desafio_cliente;
+
+-- Criar tabela de cliente
+CREATE TABLE IF NOT EXISTS cliente (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    cpf VARCHAR(14) NOT NULL UNIQUE,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    status ENUM('ativo', 'inativo', 'excluido') NOT NULL DEFAULT 'ativo',
+    data_alteracao TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+
+
+
+📂 Estrutura do projeto
+
+desafio_tecnico_consolidai\
+  
+├── app-php\  -> Aplicação PHP (MVC + MySQL) para CRUD de clientes  
+│   └── ...  
+
+
 
 
 ## Utilização
