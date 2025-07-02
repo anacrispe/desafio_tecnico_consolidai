@@ -84,9 +84,35 @@ OU
 
 xampp 8.2.12
 
+/////////////////////////////////////
+
+node -v
+> Esperado: Node.js >= 14  
+*Se não tiver instalado, baixe em: https://nodejs.org/*  
+
+
+
+npm -v
+> Esperado: NPM compatível com seu Node.js
+
+
+psql --version
+> Esperado: PostgreSQL >= 17  
+*Se não tiver instalado, baixe em: https://www.postgresql.org/download/*  
+
 
 //////////////////////////////
 
+### 📂 Estrutura do projeto
+
+desafio-tecnico\
+├── api-node\     ← API RESTful (Node.js + Express + PostgreSQL) para CRUD de produtos  
+│   └── ...  
+├── app-php\      ← Aplicação PHP (MVC + MySQL) para CRUD de clientes  
+│   └── ...  
+└── web-react\    ← SPA em React para interface do CRUD de produtos  
+    └── ...  
+```
 
 
 
@@ -97,13 +123,13 @@ xampp 8.2.12
 Para rodar localmente o banco de clientes no MySQL:
 
 sql
--- Criar banco de dados 
+- Criar banco de dados 
 CREATE DATABASE IF NOT EXISTS desafio_cliente CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
--- Selecionar o banco de dados
+- Selecionar o banco de dados
 USE desafio_cliente;
 
--- Criar tabela de cliente
+- Criar tabela de cliente
 CREATE TABLE IF NOT EXISTS cliente (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
@@ -113,21 +139,97 @@ CREATE TABLE IF NOT EXISTS cliente (
     data_alteracao TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
+#### 🔹 PostgreSQL (Produto)
+
+Para rodar localmente o banco de produtos no PostgreSQL:
+
+sql
+- Criar banco de dados
+CREATE DATABASE desafio_produto;
+
+- Conectar ao banco
+\c desafio_produtos;
+
+- Criar tabela de produto
+CREATE TABLE IF NOT EXISTS produto (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    preco NUMERIC(10,2) NOT NULL CHECK (preco >= 0),
+    estoque INT NOT NULL CHECK (estoque >= 0),
+    descricao TEXT,
+    status VARCHAR(10) NOT NULL DEFAULT 'ativo',
+    data_alteracao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
 
+>  Os scripts SQL estão disponíveis no projeto em:
 
-📂 Estrutura do projeto
+desafio-tecnico/
+├── api-node/
+│   └── database/
+│   │    └── schema.sql  ← Script para PostgreSQL
+│   └── .env             ← ⚠️ Configure o user, password e nome do banco PostgreSQL
+├── app-php/
+│   └── database/
+│   │    └── schema.sql  ← Script para MySQL
+│              
+└── web-react/
+    └── ...
+```
+> **⚠️ Importante: O nome do banco, user e password *devem* ser configurados no arquivo .env**
 
-desafio_tecnico_consolidai\
-  
-├── app-php\  -> Aplicação PHP (MVC + MySQL) para CRUD de clientes  
-│   └── ...  
+
+### 📦 Instalação dos serviços
+
+#### 🔹 API Node
+
+```bash
+cd api-node
+npm install
+
+```
+
+Para iniciar:
+```bash
+node src/app.js
+```
+ A API ficará disponível em: http://localhost:3000/produtos  
+
+
+#### 🔹 App PHP + MySQL
+
+```bash
+cd app-php
+php -S 0.0.0.0:8080
+```
+> Acesse no navegador: http://localhost:8080  
+Obs: caso a porta 8080 esteja sendo utilizada por outro serviço altere-a para 8081, 8082, etc.
+
+
+#### 🔹 SPA React
+```bash
+cd web-react/spa-produtos
+npm install
+npm run dev
+```
+> Acesse no navegador: http://localhost:5173  
+Atenção: o React precisa da API Node.js ativa para funcionar corretamente (http://localhost:3000).
 
 
 
 
 ## Utilização
 
+* Abra o navegador e acesse os links
+  * http://localhost:5173  → SPA React (CRUD Produtos)
+  * http://localhost:8080  → App PHP (CRUD Clientes)
+
 
 
 ## Funcionamento
+O projeto possui três camadas principais:  
+ * API Node.js → expõe os dados dos produtos (PostgreSQL)
+ * SPA React → interface moderna para CRUD de produtos
+ * App PHP → interface para CRUD de clientes (MySQL)  
+
+> Cada uma pode ser executada independentemente para facilitar testes e manutenção.
