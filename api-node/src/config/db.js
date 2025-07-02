@@ -25,22 +25,3 @@ pool.connect()
 */
 // test-db.js
 
-/*
-const { Pool } = require('pg');
-
-const pool = new Pool({
-  user: 'postgres',
-  password: 'root',
-  host: 'localhost',
-  port: 5432,
-  database: 'desafio_produto',
-});
-
-pool.connect()
-  .then(() => {
-    console.log("✅ Conexão com o banco estabelecida com sucesso!");
-    return pool.end();
-  })
-  .catch((err) => {
-    console.error("❌ Erro ao conectar com o banco:", err.message);
-  });*/
